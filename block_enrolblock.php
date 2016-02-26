@@ -2,7 +2,7 @@
 class block_enrolblock extends block_base {
 
 	public function init() {
-		$this->title = get_string('enrolblock', 'block_enrolblock_title');
+		$this->title = get_string('block_enrolblock_title', 'enrolblock');
 	}
 
 	public function get_content() {
@@ -24,15 +24,15 @@ class block_enrolblock extends block_base {
 
 		if ($enrolled) {
 			$unenrol_url  = new moodle_url('/enrol/manual/unenrolself.php', array('id' => $COURSE->id, 'enrolid' => $USER->id));
-			$str .= get_string('enrolblock', 'already_enrolled');
+			$str .= get_string('already_enrolled', 'enrolblock');
 			$str .= '<a href="' . $unenrol_url->out() . '">';
-			$str .= get_string('enrolblock', 'unenrol');
+			$str .= get_string('unenrol', 'enrolblock');
 			$str .= "</a>";
 		} else {
 			$enrol_url  = new moodle_url('/enrol/index.php', array('id' => $COURSE->id));
-			$str .= get_string('enrolblock', 'not_enrolled_yet');
+			$str .= get_string('not_enrolled_yet', 'enrolblock');
 			$str .= '<a href="' . $enrol_url->out() . '">';
-			$str .= get_string('enrolblock', 'enrol_now');
+			$str .= get_string('enrol_now', 'enrolblock');
 			$str .= "</a>";
 			$str .= "";
 			$str .= "";
