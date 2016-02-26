@@ -71,11 +71,6 @@ class block_enrolblock extends block_base {
 			$str .= '<input type="hidden" value="' . $course_enrol_id . '" name="instance">';
 			$str .= '<input type="hidden" value="1" name="_qf__' . $course_enrol_id . '_enrol_self_enrol_form">';
 			$str .= '<input type="hidden" value="1" name="mform_isexpanded_id_selfheader">';
-			$str .= '';
-			/*
-			<input type="password" value="">
-			<input type="hidden" value="6N7vfEd9lX" name="sesskey">
-			*/
 			$str .= '<input type="submit" value="' . $str .= get_string('enrol_now', 'block_enrolblock') . '">';
 			$str .= "</form>";
 		}
