@@ -1,5 +1,7 @@
 <?php
-$string['pluginname'] = 'Bloc Inscrivez-vous!';
-$string['simplehtml'] = 'Bloc Inscrivez-vous!';
-$string['simplehtml:addinstance'] = 'Ajouter un bloc Inscrivez-vous!';
-//$string['simplehtml:myaddinstance'] = 'Add a new simple HTML block to the My Moodle page';
+$string['block_enrolblock_title'] = "Bloc d'inscription";
+$string['already_enrolled'] = "Vous êtes déjà inscrit à ce cours";
+$string['not_enrolled_yet'] = "Vous n'êtes pas encore inscrit à ce cours";
+$string['enrol_now'] = "Inscrivez-vous maintenant";
+$string['unenrol'] = "Se désinscrire";
+$string[''] = "";

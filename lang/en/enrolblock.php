@@ -1,5 +1,7 @@
 <?php
-$string['pluginname'] = 'Enrol block';
-$string['simplehtml'] = 'Enrol block';
-$string['simplehtml:addinstance'] = 'Add a new enrol block';
-//$string['simplehtml:myaddinstance'] = 'Add a new simple HTML block to the My Moodle page';
+$string['block_enrolblock_title'] = 'Enrol block';
+$string['already_enrolled'] = "You are already enrolled in this course";
+$string['not_enrolled_yet'] = "You are not enrolled in this course yet";
+$string['enrol_now'] = "Enrol now";
+$string['unenrol'] = "Unenrol";
+$string[''] = "";
