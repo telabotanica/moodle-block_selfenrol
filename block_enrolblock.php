@@ -1,8 +1,8 @@
 <?php
-class block_simplehtml extends block_base {
+class block_enrolblock extends block_base {
 
 	public function init() {
-		$this->title = get_string('enrolblock', 'block_enrolblock');
+		$this->title = "super block enrol de la mort"; //get_string('enrolblock', 'block_enrolblock');
 	}
 
 	public function get_content() {
