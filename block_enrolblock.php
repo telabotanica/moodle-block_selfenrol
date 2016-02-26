@@ -65,12 +65,12 @@ class block_enrolblock extends block_base {
 			$str .= "<p>";
 			$str .= get_string('not_enrolled_yet', 'block_enrolblock');
 			$str .= "</p>";
-			$str .= "<br/>";
 			$str .= '<form class="mform" accept-charset="utf-8" method="post" action="' . $form_url->out() . '">';
 			$str .= '<input type="hidden" value="' . $COURSE->id . '" name="id">';
 			$str .= '<input type="hidden" value="' . $course_enrol_id . '" name="instance">';
 			$str .= '<input type="hidden" value="1" name="_qf__' . $course_enrol_id . '_enrol_self_enrol_form">';
 			$str .= '<input type="hidden" value="1" name="mform_isexpanded_id_selfheader">';
+			$str .= '<input type="hidden" value="' . $USER->sesskey . '" name="sesskey">';
 			$str .= '<input type="submit" value="' . get_string('enrol_now', 'block_enrolblock') . '">';
 			$str .= "</form>";
 		}
