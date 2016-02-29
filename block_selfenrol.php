@@ -39,7 +39,7 @@ class block_selfenrol extends block_base {
 			$login_url  = new moodle_url('/login/index.php');
 			$str .= "</p>";
 			$str .= "<br/>";
-			$str .= '<a class="btn-login" href="' . $login_url->out() . '">';
+			$str .= '<a class="submit" href="' . $login_url->out() . '">';
 			$str .= get_string('login_now', 'block_selfenrol');
 			$str .= "</a>";
 		} else { // logged-in user
