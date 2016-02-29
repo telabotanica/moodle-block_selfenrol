@@ -1,6 +1,6 @@
 <?php
 $capabilities = array(
-	'block/enrolblock:addinstance' => array(
+	'block/selfenrol:addinstance' => array(
 		'riskbitmask' => RISK_SPAM | RISK_XSS,
 		'captype' => 'write',
 		'contextlevel' => CONTEXT_BLOCK,
