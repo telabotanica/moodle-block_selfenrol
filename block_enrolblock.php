@@ -35,7 +35,8 @@ class block_enrolblock extends block_base {
 			$str .= "<p>";
 			$row3 = $DB->get_record('enrol', array('enrol' => 'guest', 'courseid' => $COURSE->id, 'status' => 0), $fields='id', $strictness=IGNORE_MISSING);
 			if ($row3 === false) {
-				$str .= get_string('cannot_view_course_as_guest', 'block_enrolblock');
+				//$str .= get_string('cannot_view_course_as_guest', 'block_enrolblock');
+				$str .= get_string('must_login_to_enrol', 'block_enrolblock');
 			} else {
 				$str .= get_string('viewing_course_as_guest', 'block_enrolblock');
 			}

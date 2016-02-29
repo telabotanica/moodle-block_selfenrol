@@ -10,4 +10,5 @@ $string['login_now'] = "Connectez-vous maintenant";
 $string['not_in_a_course'] = "Vous n'êtes pas sur une page de cours";
 $string['self_enrol_not_enabled'] = 'La méthode "self_enrol" doit être activée pour utiliser ce bloc';
 $string['viewing_course_as_guest'] = "Vous parcourez ce cours en tant qu'invité";
-$string['cannot_view_course_as_guest'] = "Vous devez vous connecter pour voir ce cours";
+$string['cannot_view_course_as_guest'] = "Vous devez vous identifier pour voir ce cours";
+$string['must_login_to_enrol'] = "Pour vous inscrire à ce cours, vous devez d'abord vous identifier";
