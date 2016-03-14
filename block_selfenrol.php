@@ -1,87 +1,142 @@
 <?php
+// This file is part of Moodle - http://moodle.org/
+//
+// Moodle is free software: you can redistribute it and/or modify
+// it under the terms of the GNU General Public License as published by
+// the Free Software Foundation, either version 3 of the License, or
+// (at your option) any later version.
+//
+// Moodle is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
+ 
+/**
+ * A simple block that shows the user's enrolment status, and suggests him to (un)enroll (and login if needed)
+ *
+ * This plugin uses enrol_self module. If enrol_self is enabled for a given course,
+ * this block will show user's enrolment status and suggest him/her to (un)enrol.
+ * 
+ * This allows to hide the Administration block that is usually responsible for displaying
+ * an (un)enrolment link, and might not be wanted (confusing title, other options might appear, etc.)
+ * 
+ * Make sure to display it on "every page" so that it appears also on courses summary pages.
+ * 
+ * English and french versions included / versions anglaise et française incluses.
+ *
+ * @package    block_selfenrol
+ * @category   blocks
+ * @copyright  2016 Mathias Chouet, Tela Botanica
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
+
+/**
+ * Block definition
+ *
+ * @package    block_selfenrol
+ * @copyright  2016 Mathias Chouet, Tela Botanica
+ * @license    http://www.gnu.org/copyleft/gpl.html GNU GPL v3 or later
+ */
 class block_selfenrol extends block_base {
 
-	public function init() {
-		$this->title = get_string('block_selfenrol_title', 'block_selfenrol');
-	}
+	/**
+	 * Initiates the block title
+	 */
+    public function init() {
+        $this->title = get_string('block_selfenrol_title', 'block_selfenrol');
+    }
 
-	public function get_content() {
-		if ($this->content !== null) {
-			return $this->content;
-		}
-		$this->content  =  new stdClass;
-		$this->content->text = $this->generate_content();
+	/**
+	 * Returns the block content
+	 * @return string
+	 */
+    public function get_content() {
+        if ($this->content !== null) {
+            return $this->content;
+        }
+        $this->content  =  new stdClass;
+        $this->content->text = $this->generate_content();
 
-		return $this->content;
-	}
+        return $this->content;
+    }
 
-	protected function generate_content() {
-		global $COURSE;
-		global $USER;
-		global $DB;
+	/**
+	 * Generates the block content
+	 * @global type $COURSE
+	 * @global type $USER
+	 * @global type $DB
+	 * @return string
+	 */
+    protected function generate_content() {
+        global $COURSE;
+        global $USER;
+        global $DB;
 
-		$str = "";
-		if ($COURSE->id == 1) { // platform home
-			// no content will make the block disappear
-			return '';
-		}
+        $str = "";
+        if ($COURSE->id == 1) { // platform home
+            // No content will make the block disappear
+            return '';
+        }
 
-		if ($USER->id == 1) { // guest user
-			// are guests allowed to view course ?
-			$str .= "<p>";
-			$row3 = $DB->get_record('enrol', array('enrol' => 'guest', 'courseid' => $COURSE->id, 'status' => 0), $fields='id', $strictness=IGNORE_MISSING);
-			if ($row3 === false) {
-				//$str .= get_string('cannot_view_course_as_guest', 'block_selfenrol');
-				$str .= get_string('must_login_to_enrol', 'block_selfenrol');
-			} else {
-				$str .= get_string('viewing_course_as_guest', 'block_selfenrol');
-			}
-			$login_url  = new moodle_url('/login/index.php');
-			$str .= "</p>";
-			$str .= "<br/>";
-			$str .= '<a class="submit" href="' . $login_url->out() . '">';
-			$str .= get_string('login_now', 'block_selfenrol');
-			$str .= "</a>";
-		} else { // logged-in user
-			// find 'self' enrolid for current course
-			$row1 = $DB->get_record('enrol', array('enrol' => 'self', 'courseid' => $COURSE->id, 'status' => 0), $fields='id', $strictness=IGNORE_MISSING);
-			if ($row1 === false) { // self enrollment not allowed
-				$str .= get_string('self_enrol_not_enabled', 'block_selfenrol');
-			} else { // self-enrollement allowed !
-				$course_enrol_id = $row1->id;
-				// find if current user is enrolled
-				$row2 = $DB->get_record('user_enrolments', array('enrolid' => $course_enrol_id, 'userid' => $USER->id), $fields='id', $strictness=IGNORE_MISSING);
-				$user_is_enrolled = ($row2 !== false);
+        if ($USER->id == 1) { // guest user
+            // Are guests allowed to view course ?
+            $str .= "<p>";
+            $row3 = $DB->get_record('enrol', array('enrol' => 'guest', 'courseid' => $COURSE->id, 'status' => 0), $fields='id', $strictness=IGNORE_MISSING);
+            if ($row3 === false) {
+                // $str .= get_string('cannot_view_course_as_guest', 'block_selfenrol');
+                $str .= get_string('must_login_to_enrol', 'block_selfenrol');
+            } else {
+                $str .= get_string('viewing_course_as_guest', 'block_selfenrol');
+            }
+            $loginUrl  = new moodle_url('/login/index.php');
+            $str .= "</p>";
+            $str .= "<br/>";
+            $str .= '<a class="submit" href="' . $loginUrl->out() . '">';
+            $str .= get_string('login_now', 'block_selfenrol');
+            $str .= "</a>";
+        } else { // Logged-in user
+            // Find 'self' enrolid for current course
+            $row1 = $DB->get_record('enrol', array('enrol' => 'self', 'courseid' => $COURSE->id, 'status' => 0), $fields='id', $strictness=IGNORE_MISSING);
+            if ($row1 === false) { // self enrollment not allowed
+                $str .= get_string('self_enrol_not_enabled', 'block_selfenrol');
+            } else { // Self-enrollement allowed !
+                $courseEnrolId = $row1->id;
+                // Find if current user is enrolled
+                $row2 = $DB->get_record('user_enrolments', array('enrolid' => $courseEnrolId, 'userid' => $USER->id), $fields='id', $strictness=IGNORE_MISSING);
+                $userIsEnrolled = ($row2 !== false);
 
-				if ($user_is_enrolled) {
-					$unenrol_url  = new moodle_url('/enrol/self/unenrolself.php', array('enrolid' => $course_enrol_id));
-					$str .= "<p>";
-					$str .= get_string('already_enrolled', 'block_selfenrol');
-					$str .= "</p>";
-					$str .= "<br/>";
-					$str .= '<a class="submit" href="' . $unenrol_url->out() . '">';
-					$str .= get_string('unenrol', 'block_selfenrol');
-					$str .= "</a>";
-				} else {
-					// self-enrol form
-					// @TODO is it possible to reuse the method in "enrol_self" that generates such a form ?
-					$form_url = new moodle_url('/enrol/index.php');
-					$str .= "<p>";
-					$str .= get_string('not_enrolled_yet', 'block_selfenrol');
-					$str .= "</p>";
-					$str .= '<form class="mform" accept-charset="utf-8" method="post" action="' . $form_url->out() . '">';
-					$str .= '<input type="hidden" value="' . $COURSE->id . '" name="id">';
-					$str .= '<input type="hidden" value="' . $course_enrol_id . '" name="instance">';
-					$str .= '<input type="hidden" value="1" name="_qf__' . $course_enrol_id . '_enrol_self_enrol_form">';
-					$str .= '<input type="hidden" value="1" name="mform_isexpanded_id_selfheader">';
-					$str .= '<input type="hidden" value="' . $USER->sesskey . '" name="sesskey">';
-					$str .= '<input type="submit" value="' . get_string('enrol_now', 'block_selfenrol') . '">';
-					$str .= "</form>";
-				}
-			}
-		}
+                if ($userIsEnrolled) {
+                    $unenrolUrl = new moodle_url('/enrol/self/unenrolself.php', array('enrolid' => $courseEnrolId));
+                    $str .= "<p>";
+                    $str .= get_string('already_enrolled', 'block_selfenrol');
+                    $str .= "</p>";
+                    $str .= "<br/>";
+                    $str .= '<a class="submit" href="' . $unenrolUrl->out() . '">';
+                    $str .= get_string('unenrol', 'block_selfenrol');
+                    $str .= "</a>";
+                } else {
+                    // Self-enrol form
+                    // @TODO is it possible to reuse the method in "enrol_self" that generates such a form ?
+                    $formUrl = new moodle_url('/enrol/index.php');
+                    $str .= "<p>";
+                    $str .= get_string('not_enrolled_yet', 'block_selfenrol');
+                    $str .= "</p>";
+                    $str .= '<form class="mform" accept-charset="utf-8" method="post" action="' . $formUrl->out() . '">';
+                    $str .= '<input type="hidden" value="' . $COURSE->id . '" name="id">';
+                    $str .= '<input type="hidden" value="' . $courseEnrolId . '" name="instance">';
+                    $str .= '<input type="hidden" value="1" name="_qf__' . $courseEnrolId . '_enrol_self_enrol_form">';
+                    $str .= '<input type="hidden" value="1" name="mform_isexpanded_id_selfheader">';
+                    $str .= '<input type="hidden" value="' . $USER->sesskey . '" name="sesskey">';
+                    $str .= '<input type="submit" value="' . get_string('enrol_now', 'block_selfenrol') . '">';
+                    $str .= "</form>";
+                }
+            }
+        }
 
-		return $str;
-	}
+        return $str;
+    }
 }
 ?>
