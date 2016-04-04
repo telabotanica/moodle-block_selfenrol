@@ -154,7 +154,7 @@ class block_selfenrol extends block_base {
                     $str .= '<input type="hidden" value="1" name="mform_isexpanded_id_selfheader">';
                     $str .= '<input type="hidden" value="' . $USER->sesskey . '" name="sesskey">';
                     if (! empty($this->config->enrol_now)){
-                        $str .= $this->config->enrol_now;
+                        $str .= '<input type="submit" value="' . $this->config->enrol_now . '">';
                     } else {
                         $str .= '<input type="submit" value="' . get_string('enrol_now', 'block_selfenrol') . '">';
                     }
