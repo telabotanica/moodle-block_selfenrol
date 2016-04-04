@@ -34,7 +34,7 @@
  */
 
 $capabilities = array(
-	'block/selfenrol:myaddinstance' => array(
+    'block/selfenrol:myaddinstance' => array(
         'captype' => 'write',
         'contextlevel' => CONTEXT_SYSTEM,
         'archetypes' => array(

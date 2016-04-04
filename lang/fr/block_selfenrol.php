@@ -46,3 +46,12 @@ $string['self_enrol_not_enabled'] = 'La méthode "self_enrol" doit être activé
 $string['viewing_course_as_guest'] = "Vous parcourez ce cours en tant qu'invité";
 $string['cannot_view_course_as_guest'] = "Vous devez vous identifier pour voir ce cours";
 $string['must_login_to_enrol'] = "Pour vous inscrire à ce cours, vous devez d'abord être identifié(e)";
+
+$string['config_must_login_to_enrol'] = "Changer le texte \"connexion nécessaire\" (par défaut: \"Pour vous inscrire à ce cours, vous devez d'abord être identifié(e)\")";
+$string['config_viewing_course_as_guest'] = "Changer le texte \"invité\" (par défaut: \"Vous parcourez ce cours en tant qu'invité\")";
+$string['config_already_enrolled'] = "Changer le texte \"déjà inscrit\" (par défaut: \"Vous êtes inscrit à ce cours\")";
+$string['config_not_enrolled_yet'] = "Changer le texte \"pas encore inscrit\" (par défaut: \"Vous n'êtes pas encore inscrit à ce cours\")";
+
+$string['config_login_now'] = "Changer le texte du bouton \"connexion\" (par défaut: \"Se connecter\")";
+$string['config_enrol_now'] = "Changer le texte du bouton \"inscription\" (par défaut: \"S'inscrire\")";
+$string['config_unenrol'] = "Changer le texte du bouton \"désinscription\" (par défaut: \"Se désinscrire\")";

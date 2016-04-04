@@ -46,3 +46,12 @@ $string['self_enrol_not_enabled'] = '"self_enrol" method must be enabled to use 
 $string['viewing_course_as_guest'] = 'You are viewing this course as a guest';
 $string['cannot_view_course_as_guest'] = "You have to log in to view this course";
 $string['must_login_to_enrol'] = "To enrol in this course, you have to log in first";
+
+$string['config_must_login_to_enrol'] = "Customize \"must login\" text (defaults to \"To enrol in this course, you have to log in first\")";
+$string['config_viewing_course_as_guest'] = "Customize \"viewing course as guest\" text (defaults to \"You are viewing this course as a guest\")";
+$string['config_already_enrolled'] = "Customize \"already enrolled\" text (defaults to \"You are enrolled in this course\")";
+$string['config_not_enrolled_yet'] = "Customize \"not enrolled yet\" text (defaults to \"You are not enrolled in this course yet\")";
+
+$string['config_login_now'] = "Customize \"log in\" button (defaults to \"Log in\")";
+$string['config_enrol_now'] = "Customize \"enrol\" button (defaults to \"Enrol\")";
+$string['config_unenrol'] = "Customize \"unenrol\" button (defaults to \"Unenrol\")";
