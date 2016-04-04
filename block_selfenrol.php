@@ -42,17 +42,17 @@
  */
 class block_selfenrol extends block_base {
 
-	/**
-	 * Initiates the block title
-	 */
+    /**
+     * Initiates the block title
+     */
     public function init() {
         $this->title = get_string('block_selfenrol_title', 'block_selfenrol');
     }
 
-	/**
-	 * Returns the block content
-	 * @return string
-	 */
+    /**
+     * Returns the block content
+     * @return string
+     */
     public function get_content() {
         if ($this->content !== null) {
             return $this->content;
@@ -63,13 +63,13 @@ class block_selfenrol extends block_base {
         return $this->content;
     }
 
-	/**
-	 * Generates the block content
-	 * @global type $COURSE
-	 * @global type $USER
-	 * @global type $DB
-	 * @return string
-	 */
+    /**
+     * Generates the block content
+     * @global type $COURSE
+     * @global type $USER
+     * @global type $DB
+     * @return string
+     */
     protected function generate_content() {
         global $COURSE;
         global $USER;
@@ -86,16 +86,27 @@ class block_selfenrol extends block_base {
             $str .= "<p>";
             $row3 = $DB->get_record('enrol', array('enrol' => 'guest', 'courseid' => $COURSE->id, 'status' => 0), $fields='id', $strictness=IGNORE_MISSING);
             if ($row3 === false) {
-                // $str .= get_string('cannot_view_course_as_guest', 'block_selfenrol');
-                $str .= get_string('must_login_to_enrol', 'block_selfenrol');
+                if (! empty($this->config->must_login_to_enrol)){
+                    $str .= $this->config->must_login_to_enrol;
+                } else {
+                    $str .= get_string('must_login_to_enrol', 'block_selfenrol');
+                }
             } else {
-                $str .= get_string('viewing_course_as_guest', 'block_selfenrol');
+                if (! empty($this->config->viewing_course_as_guest)){
+                    $str .= $this->config->viewing_course_as_guest;
+                } else {
+                    $str .= get_string('viewing_course_as_guest', 'block_selfenrol');
+                }
             }
             $loginUrl  = new moodle_url('/login/index.php');
             $str .= "</p>";
             $str .= "<br/>";
             $str .= '<a class="submit" href="' . $loginUrl->out() . '">';
-            $str .= get_string('login_now', 'block_selfenrol');
+            if (! empty($this->config->login_now)){
+                $str .= $this->config->login_now;
+            } else {
+                $str .= get_string('login_now', 'block_selfenrol');
+            }
             $str .= "</a>";
         } else { // Logged-in user
             // Find 'self' enrolid for current course
@@ -111,18 +122,30 @@ class block_selfenrol extends block_base {
                 if ($userIsEnrolled) {
                     $unenrolUrl = new moodle_url('/enrol/self/unenrolself.php', array('enrolid' => $courseEnrolId));
                     $str .= "<p>";
-                    $str .= get_string('already_enrolled', 'block_selfenrol');
+                    if (! empty($this->config->already_enrolled)){
+                        $str .= $this->config->already_enrolled;
+                    } else {
+                        $str .= get_string('already_enrolled', 'block_selfenrol');
+                    }
                     $str .= "</p>";
                     $str .= "<br/>";
                     $str .= '<a class="submit" href="' . $unenrolUrl->out() . '">';
-                    $str .= get_string('unenrol', 'block_selfenrol');
+                    if (! empty($this->config->unenrol)){
+                        $str .= $this->config->unenrol;
+                    } else {
+                        $str .= get_string('unenrol', 'block_selfenrol');
+                    }
                     $str .= "</a>";
                 } else {
                     // Self-enrol form
                     // @TODO is it possible to reuse the method in "enrol_self" that generates such a form ?
                     $formUrl = new moodle_url('/enrol/index.php');
                     $str .= "<p>";
-                    $str .= get_string('not_enrolled_yet', 'block_selfenrol');
+                    if (! empty($this->config->not_enrolled_yet)){
+                        $str .= $this->config->not_enrolled_yet;
+                    } else {
+                        $str .= get_string('not_enrolled_yet', 'block_selfenrol');
+                    }
                     $str .= "</p>";
                     $str .= '<form class="mform" accept-charset="utf-8" method="post" action="' . $formUrl->out() . '">';
                     $str .= '<input type="hidden" value="' . $COURSE->id . '" name="id">';
@@ -130,7 +153,11 @@ class block_selfenrol extends block_base {
                     $str .= '<input type="hidden" value="1" name="_qf__' . $courseEnrolId . '_enrol_self_enrol_form">';
                     $str .= '<input type="hidden" value="1" name="mform_isexpanded_id_selfheader">';
                     $str .= '<input type="hidden" value="' . $USER->sesskey . '" name="sesskey">';
-                    $str .= '<input type="submit" value="' . get_string('enrol_now', 'block_selfenrol') . '">';
+                    if (! empty($this->config->enrol_now)){
+                        $str .= $this->config->enrol_now;
+                    } else {
+                        $str .= '<input type="submit" value="' . get_string('enrol_now', 'block_selfenrol') . '">';
+                    }
                     $str .= "</form>";
                 }
             }
