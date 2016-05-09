@@ -85,8 +85,8 @@ class block_selfenrol extends block_base {
             // Are guests allowed to view course ?
             $str .= "<p>";
             $row3 = $DB->get_record('enrol',
-				array('enrol' => 'guest', 'courseid' => $COURSE->id, 'status' => 0),
-				'id', IGNORE_MISSING);
+                array('enrol' => 'guest', 'courseid' => $COURSE->id, 'status' => 0),
+                'id', IGNORE_MISSING);
             if ($row3 === false) {
                 if (! empty($this->config->must_login_to_enrol)) {
                     $str .= $this->config->must_login_to_enrol;
@@ -113,16 +113,16 @@ class block_selfenrol extends block_base {
         } else { // Logged-in user.
             // Find 'self' enrolid for current course.
             $row1 = $DB->get_record('enrol',
-				array('enrol' => 'self', 'courseid' => $COURSE->id, 'status' => 0),
-				'id', IGNORE_MISSING);
+                array('enrol' => 'self', 'courseid' => $COURSE->id, 'status' => 0),
+                'id', IGNORE_MISSING);
             if ($row1 === false) { // Self enrollment not allowed.
                 $str .= get_string('self_enrol_not_enabled', 'block_selfenrol');
             } else { // Self-enrollement allowed !
                 $courseenrolid = $row1->id;
                 // Find if current user is enrolled.
                 $row2 = $DB->get_record('user_enrolments',
-					array('enrolid' => $courseenrolid, 'userid' => $USER->id),
-					'id', IGNORE_MISSING);
+                    array('enrolid' => $courseenrolid, 'userid' => $USER->id),
+                    'id', IGNORE_MISSING);
                 $userisenrolled = ($row2 !== false);
 
                 if ($userisenrolled) {
