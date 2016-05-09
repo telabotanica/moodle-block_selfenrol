@@ -13,18 +13,18 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
- 
+
 /**
  * A simple block that shows the user's enrolment status, and suggests him to (un)enroll (and login if needed)
  *
  * This plugin uses enrol_self module. If enrol_self is enabled for a given course,
  * this block will show user's enrolment status and suggest him/her to (un)enrol.
- * 
+ *
  * This allows to hide the Administration block that is usually responsible for displaying
  * an (un)enrolment link, and might not be wanted (confusing title, other options might appear, etc.)
- * 
+ *
  * Make sure to display it on "every page" so that it appears also on courses summary pages.
- * 
+ *
  * English and french versions included / versions anglaise et française incluses.
  *
  * @package    block_selfenrol
@@ -47,34 +47,33 @@ class block_selfenrol_edit_form extends block_edit_form {
         // Section header title according to language file.
         $mform->addElement('header', 'configheader', get_string('blocksettings', 'block'));
 
-        // customize block text
-        // "must login to enrol"
+        // Customize block text.
         $mform->addElement('text', 'config_must_login_to_enrol', get_string('config_must_login_to_enrol', 'block_selfenrol'));
         $mform->setDefault('config_must_login_to_enrol', '');
         $mform->setType('config_must_login_to_enrol', PARAM_RAW);
-        // "viewing course as guest"
+
         $mform->addElement('text', 'config_viewing_course_as_guest', get_string('config_viewing_course_as_guest', 'block_selfenrol'));
         $mform->setDefault('config_viewing_course_as_guest', '');
         $mform->setType('config_viewing_course_as_guest', PARAM_RAW);
-        // "already_enrolled"
+
         $mform->addElement('text', 'config_already_enrolled', get_string('config_already_enrolled', 'block_selfenrol'));
         $mform->setDefault('config_already_enrolled', '');
         $mform->setType('config_already_enrolled', PARAM_RAW);
-        // "not_enrolled_yet"
+
         $mform->addElement('text', 'config_not_enrolled_yet', get_string('config_not_enrolled_yet', 'block_selfenrol'));
         $mform->setDefault('config_not_enrolled_yet', '');
         $mform->setType('config_not_enrolled_yet', PARAM_RAW);
 
-        // customize button text
-        // "login now"
+        // Customize button text.
+
         $mform->addElement('text', 'config_login_now', get_string('config_login_now', 'block_selfenrol'));
         $mform->setDefault('config_login_now', '');
         $mform->setType('config_login_now', PARAM_RAW);
-        // "enrol now"
+
         $mform->addElement('text', 'config_enrol_now', get_string('config_enrol_now', 'block_selfenrol'));
         $mform->setDefault('config_enrol_now', '');
         $mform->setType('config_enrol_now', PARAM_RAW);
-        // "unenrol"
+
         $mform->addElement('text', 'config_unenrol', get_string('config_unenrol', 'block_selfenrol'));
         $mform->setDefault('config_unenrol', '');
         $mform->setType('config_unenrol', PARAM_RAW);
