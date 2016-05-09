@@ -8,3 +8,6 @@ This allows to hide the Administration block that is usually responsible for dis
 Make sure to display it on "every page" so that it appears also on courses summary pages.
 
 English and french versions included / versions anglaise et française incluses.
+
+## continuous integration
+[![Build Status](https://travis-ci.org/telabotanica/moodle-block_selfenrol.svg?branch=master)](https://travis-ci.org/telabotanica/moodle-block_selfenrol)
